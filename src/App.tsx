@@ -1,14 +1,14 @@
 import { useEffect} from 'react';
-import { Outlet } from 'react-router-dom';
-import './App.css';
-import Registeruser from './modules/registeruser'; 
+import './App.css'; 
+import Navbar from './modules/Navbar';
 const App: React.FC = () => {
   useEffect(() => {
 		document.title = 'Homepage';
 	  });
   return (
     <div className="App">
-   
+      <Navbar />
+      
     </div>
   );
 }

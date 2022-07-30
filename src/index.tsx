@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Registeruser from './modules/registeruser';
 import NotFound from './modules/NotFound';
+import Login from './modules/login';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -19,6 +20,7 @@ root.render(
       <Route path="*" element={<NotFound />} />
       <Route path="/" element={<App />} />
       <Route path="/register" element={<Registeruser />} />
+      <Route path="/login" element={<Login />} />
       
     </Routes>
   </BrowserRouter>
