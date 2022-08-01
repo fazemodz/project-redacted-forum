@@ -1,35 +1,61 @@
-import React  from "react";
+import { useState} from "react";
 const Login: React.FC = () => {
-    return (
-        <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 dark:dark:bg-gray-900 dark:dark:text-gray-100">
-	<div className="mb-8 text-center">
-		<h1 className="my-3 text-4xl font-bold">Sign in</h1>
-		<p className="text-sm dark:dark:text-gray-400">Sign in to access your account</p>
-	</div>
-	<form  action="" className="space-y-12 ng-untouched ng-pristine ng-valid">
-		<div className="space-y-4">
-			<div>
-				<label htmlFor="email" className="block mb-2 text-sm">Email address</label>
-				<input type="email" name="email" id="email" placeholder="leroy@jenkins.com" className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100" />
-			</div>
-			<div>
-				<div className="flex justify-between mb-2">
-					<label htmlFor="password" className="text-sm">Password</label>
-					<a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:dark:text-gray-400">Forgot password?</a>
-				</div>
-				<input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100" />
-			</div>
+	const [Username, setUSername] = useState<string>('');
+	const [Password, setPassword] = useState<string>('');
+	const [IsUsernameInvalid, setIsUsernameInvalid] = useState<boolean>(false);
+	const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if(Username.includes('@') && Username.includes('.')) {
+			setIsUsernameInvalid(true);
+			console.log('Username is not valid');
+		}
+		else {
+		event.preventDefault();
+		console.log(Username, Password);
+		}
+	}
+	return (
+		
+		<div className="bg-grey-lighter min-h-screen flex flex columns">
+		<div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
+		  <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+			<h1 className="mb-8 text-3x1 text-center">Login</h1>
+			<input
+			  type="Username"
+			  placeholder="Username"
+			  value={Username}
+			  onChange={(e) => setUSername(e.target.value)}
+			  id="username"
+			  className="block border border-grey-light w-full p-3 rounded mb-4"
+			/>
+			<label
+			  htmlFor="username"
+			  className={IsUsernameInvalid ? "block text-red-500" : "block text-grey-darker"}
+			/>
+			<input
+			  type="password"
+			  placeholder="Password"
+			  value={Password}
+			  onChange={(e) => setPassword(e.target.value)}
+			  id="password"
+			  className="block border border-grey-light w-full p-3 rounded mb-4"
+			/>
+			<button 
+			type="submit" 
+			className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline" 
+			onClick={onSubmit}
+			>
+			  Login
+			</button>
+		  </div>
+		  <div className="text-grey-dark mt-6">
+			Don't have an account?
+			<a className="no-underline border-b border-blue text-blue" href="/register">
+			  Register here
+			</a>.
+		  </div>
 		</div>
-		<div className="space-y-2">
-			<div>
-				<button type="button" className="w-full px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900">Sign in</button>
-			</div>
-			<p className="px-6 text-sm text-center dark:dark:text-gray-400">Don't have an account yet?
-				<a rel="noopener noreferrer" href="#" className="hover:underline dark:dark:text-violet-400">Sign up</a>.
-			</p>
-		</div>
-	</form>
-</div>
-    );
-    }
+  
+	  </div>
+	);
+}
 export default Login;
