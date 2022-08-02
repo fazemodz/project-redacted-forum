@@ -1,3 +1,4 @@
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 const Login: React.FC = () => {
 	const [Username, setUSername] = useState<string>('');
@@ -6,6 +7,18 @@ const Login: React.FC = () => {
 	const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
 			event.preventDefault();
 			console.log(Username, Password);
+			axios.post('http://localhost:5000/api/v1/user-endpoint/Login', {
+				Username: Username,
+				Password: Password
+			})
+				.then(function (response) {
+					console.log(response.status);
+					console.log(response.data);
+				})
+				.catch(function (reaseon: AxiosError) {
+					setIsUsernameInvalid(true);
+					console.log("An error occurred: " + reaseon.message);
+				});
 	}
 	const CheckUsername = () => {
 		if (Username.includes('@') && Username.includes('.')) {

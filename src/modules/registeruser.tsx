@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios';
-
+import axios , {AxiosResponse, AxiosError}from 'axios';
 const Registeruser: React.FC = () => {
   const [Username, setUSername] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
@@ -37,12 +36,12 @@ const Registeruser: React.FC = () => {
       Email: Email
     })
       .then(function (response) {
+        console.log(response.status);
         setRegisterSuccess(true);
-        console.log(response.data);
       })
-      .catch(function (error) {
+      .catch(function (reaseon: AxiosError) {
         setRegisterError(true);
-        setRegisterErrorMessage(error);
+        setRegisterErrorMessage(reaseon.message);
         console.log("An error occurred: " + RegisterErrorMessage);
       }
       );
