@@ -41,7 +41,7 @@ const Login: React.FC = () => {
 		{
 			UserPrefersDarkmode ?
 			//to do: add darkmode ver of form 
-			<div className="bg-grey-lighter min-h-screen flex flex columns">
+			<div className="bg-grey-lighter h-full pt-56 flex flex columns">
 			<div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
 				<div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
 					<h1 className="mb-8 text-3x1 text-center">Login</h1>
@@ -91,7 +91,7 @@ const Login: React.FC = () => {
 
 		</div>
 		:
-		<div className="bg-grey-lighter min-h-screen flex flex columns">
+		<div className="bg-grey-lighter h-full pt-56 flex flex columns">
 			<div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
 				<div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
 					<h1 className="mb-8 text-3x1 text-center">Login</h1>
