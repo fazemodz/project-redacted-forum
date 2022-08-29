@@ -47,7 +47,7 @@ const Registeruser: React.FC = () => {
       );
   }
   return (
-    <div className="bg-grey-lighter h-full pt-56 flex flex columns">
+    <div className="bg-grey-lighter h-4/5 flex flex columns">
       <div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
           <h1 className="mb-8 text-3x1 text-center">Register</h1>
@@ -85,7 +85,7 @@ const Registeruser: React.FC = () => {
           />
           <button 
           type="submit" 
-          className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline" 
+          className="w-full px-4 py-2 font-bold text-white dark:dark:bg-gray-800 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline" 
           onClick={onSubmit}
           >
             Register
@@ -100,10 +100,10 @@ const Registeruser: React.FC = () => {
             </a>
           </div>
         </div>
-        <div className="text-grey-dark mt-6">
-          Already have an account?
+        <div className="text-white mt-6">
+          Already have an account? 
           <a className="no-underline border-b border-blue text-blue" href="../login/">
-            Log in
+             Log in
           </a>.
         </div>
       </div>
