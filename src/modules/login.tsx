@@ -16,6 +16,15 @@ const Login: React.FC = () => {
 		})
 			.then(function (response) {
 				console.log(response.status);
+				if (response.status === 200) {
+					DispatchUserInfoToStore(UserLoginSuccess({
+						Username: Username,
+						Email: response.data.Email,
+						ForumsSubbedTo: response.data.ForumsSubbedTo,
+						IsUserLoggedin : true
+
+					}));
+				}
 			})
 			.catch(function (reaseon: AxiosError) {
 				if(reaseon.message === 'Request failed with status code 404'){

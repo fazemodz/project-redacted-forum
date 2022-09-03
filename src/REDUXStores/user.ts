@@ -1,12 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-const UserSlice = createSlice({
+import { createSlice  } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+const persistConfig = {
+    key: 'root',
+    storage,
+  }
+//   const persistedReducer = persistReducer(persistConfig)
+const userSlice = createSlice({
     name: "user",
     initialState: {
         value:{
             Username: "",
             Email: "",
             ForumsSubbedTo: [],
+            IsUserLoggedin: false,
         }
     },
     reducers: {
@@ -15,5 +22,5 @@ const UserSlice = createSlice({
         },
     }
 });
-export const { UserLoginSuccess } = UserSlice.actions;
-export default UserSlice.reducer;
+export const { UserLoginSuccess } = userSlice.actions;
+export default userSlice.reducer;

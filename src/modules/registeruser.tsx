@@ -1,51 +1,56 @@
 import React, { useState } from 'react'
-import axios , {AxiosResponse, AxiosError}from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { UserLoginSuccess } from '../REDUXStores/user';
 const Registeruser: React.FC = () => {
+  let navigate = useNavigate();
   const [Username, setUSername] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const [PasswordCheck, setPasswordCheck] = useState<string>('');
   const [Email, setEmail] = useState<string>('');
   const [RegisterError, setRegisterError] = useState<boolean>(false);
   const [RegisterErrorMessage, setRegisterErrorMessage] = useState<string>('');
-  const [RegisterSuccess, setRegisterSuccess] = useState<boolean>(false);
   const [PasswordCheckResult, setPasswordCheckResult] = useState<string>('');
   const [EmailCheckResult, setEmailCheckResult] = useState<String>('');
+  const User = useSelector((state: any) => state.user.value);
+  const DispatchUserInfoToStore = useDispatch();
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log(Username, Password, PasswordCheck, Email);
-    if (PasswordCheck === Password) {
-      setPasswordCheckResult('Passwords match');
-    }
-    else {
-      setPasswordCheckResult('Passwords do not match');
-    }
-    if (Email.includes('@') && Email.includes('.')) {
-      setEmailCheckResult('Email is valid');
-    }
-    else {
-      setEmailCheckResult('Email is not valid');
-    }
-    if (PasswordCheckResult === 'Passwords match' && EmailCheckResult === 'Email is valid') {
-      SubmitToApi();
-    }
+    
+    SubmitToApi();
   }
-  const SubmitToApi = () => {
-    axios.post('http://localhost:5000/api/v1/user-endpoint/Create-new-user', {
-      Username: Username,
-      Password: Password,
-      Email: Email
-    })
-      .then(function (response) {
-        console.log(response.status);
-        setRegisterSuccess(true);
-      })
-      .catch(function (reaseon: AxiosError) {
-        setRegisterError(true);
-        setRegisterErrorMessage(reaseon.message);
-        console.log("An error occurred: " + RegisterErrorMessage);
-      }
-      );
-  }
+  const SubmitToApi= () => {
+    // added a delay to fix a bug where the user needed to click twice for the api request to be sent
+    setTimeout(() => {
+      axios
+        .post("http://localhost:5000/api/v1/user-endpoint/Create-new-user", {
+          Username: Username,
+          Password: Password,
+          Email: Email,
+        })
+        .then(function (response) {
+          console.log(response.status);
+          console.log(response.data.message);
+          if (response.data.message === "User Created") {
+            DispatchUserInfoToStore(
+              UserLoginSuccess({
+                Username: Username,
+                Email: Email,
+                ForumsSubbedTo: response.data.UserData.ForumsSubbedTo,
+                IsUserLoggedin: true,
+              })
+            );
+  
+            navigate("/");
+          }
+        })
+        .catch(function (reaseon: AxiosError) {
+          console.log(reaseon);
+        });
+    }, 10);
+  };
   return (
     <div className="bg-grey-lighter h-4/5 flex flex columns">
       <div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
@@ -83,10 +88,10 @@ const Registeruser: React.FC = () => {
             id="passwordCheck"
             className="block border border-grey-light w-full p-3 rounded mb-4"
           />
-          <button 
-          type="submit" 
-          className="w-full px-4 py-2 font-bold text-white dark:dark:bg-gray-800 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline" 
-          onClick={onSubmit}
+          <button
+            type="submit"
+            className="w-full px-4 py-2 font-bold text-white dark:dark:bg-gray-800 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+            onClick={onSubmit}
           >
             Register
           </button>
@@ -101,9 +106,9 @@ const Registeruser: React.FC = () => {
           </div>
         </div>
         <div className="text-white mt-6">
-          Already have an account? 
+          Already have an account?
           <a className="no-underline border-b border-blue text-blue" href="../login/">
-             Log in
+            Log in
           </a>.
         </div>
       </div>
