@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserLoginSuccess } from '../REDUXStores/user';
 const Registeruser: React.FC = () => {
   let navigate = useNavigate();
-  const [Username, setUSername] = useState<string>('');
+  const [Username, setUsername] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const [PasswordCheck, setPasswordCheck] = useState<string>('');
   const [Email, setEmail] = useState<string>('');
@@ -14,14 +14,16 @@ const Registeruser: React.FC = () => {
   const [PasswordCheckResult, setPasswordCheckResult] = useState<string>('');
   const [EmailCheckResult, setEmailCheckResult] = useState<String>('');
   const User = useSelector((state: any) => state.user.value);
+  const [PrevInvalidUsername, setPrevInvalidUsername] = useState<string>('');
   const DispatchUserInfoToStore = useDispatch();
+  const [RegisterButtonDisabled, setRegisterButtonDisabled] = useState<boolean>(false);
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log(Username, Password, PasswordCheck, Email);
-    
+
     SubmitToApi();
   }
-  const SubmitToApi= () => {
+  const SubmitToApi = () => {
     // added a delay to fix a bug where the user needed to click twice for the api request to be sent
     setTimeout(() => {
       axios
@@ -42,7 +44,7 @@ const Registeruser: React.FC = () => {
                 IsUserLoggedin: true,
               })
             );
-  
+
             navigate("/");
           }
         })
@@ -50,6 +52,43 @@ const Registeruser: React.FC = () => {
           console.log(reaseon);
         });
     }, 10);
+  };
+  const CheckUsername = () => {
+    if(Username === PrevInvalidUsername){
+      setRegisterError(true);
+      setRegisterErrorMessage("Username is the same as the username you used last time");
+      setRegisterButtonDisabled(true);
+      console.log(RegisterErrorMessage)
+
+    }
+    if (Username.length < 3) {
+      setRegisterError(true);
+      setRegisterErrorMessage("Username must be at least 3 characters long");
+    }
+    if (Username.length < 20) {
+      setRegisterError(true);
+      setRegisterErrorMessage("Username must be at under 20 characters long");
+    }
+    if (RegisterError == false) {
+      axios
+        .post("http://localhost:5000/api/v1/user-endpoint/Check-username", {
+          Username: Username,
+        })
+        .then(function (response) {
+          console.log(response.data.error);
+          if (response.data.error === "Username taken") {
+            console.log(response.data.error);
+            setRegisterError(true);
+            setRegisterErrorMessage("Username is already taken");
+            setRegisterButtonDisabled(true);
+            setPrevInvalidUsername(Username);
+            console.log("TEST " + PrevInvalidUsername)
+          }
+        })
+        .catch(function (reaseon: AxiosError) {
+          console.log(reaseon);
+        });
+    }
   };
   return (
     <div className="bg-grey-lighter h-4/5 flex flex columns">
@@ -68,9 +107,11 @@ const Registeruser: React.FC = () => {
             type="Username"
             placeholder="Username"
             value={Username}
-            onChange={(e) => setUSername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             id="username"
             className="block border border-grey-light w-full p-3 rounded mb-4"
+            onBlur={CheckUsername}
+            onFocus={() => setRegisterError(false)}
           />
           <input
             type="password"
@@ -92,6 +133,7 @@ const Registeruser: React.FC = () => {
             type="submit"
             className="w-full px-4 py-2 font-bold text-white dark:dark:bg-gray-800 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
             onClick={onSubmit}
+            disabled={RegisterButtonDisabled}
           >
             Register
           </button>
