@@ -33,8 +33,6 @@ const Registeruser: React.FC = () => {
           Email: Email,
         })
         .then(function (response) {
-          console.log(response.status);
-          console.log(response.data.message);
           if (response.data.message === "User Created") {
             DispatchUserInfoToStore(
               UserLoginSuccess({
@@ -77,12 +75,10 @@ const Registeruser: React.FC = () => {
         .then(function (response) {
           console.log(response.data.error);
           if (response.data.error === "Username taken") {
-            console.log(response.data.error);
             setRegisterError(true);
             setRegisterErrorMessage("Username is already taken");
             setRegisterButtonDisabled(true);
             setPrevInvalidUsername(Username);
-            console.log("TEST " + PrevInvalidUsername)
           }
         })
         .catch(function (reaseon: AxiosError) {
