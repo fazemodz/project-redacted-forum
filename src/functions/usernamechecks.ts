@@ -1,12 +1,16 @@
 import React from 'react'
 
 export default function usernamechecks(Usename: string) {
- //check usename length minimum 5 and maximum 15 characters long
+    if (CheckLenght(Usename)) {
+        return true;
+    }else{
+        return false;
+    }
   
 
 }
 const CheckLenght = (Usename: string) => {
-    if (Usename.length < 5 || Usename.length > 15) {
+    if (Usename.length < 5 || Usename.length > 20) {
         return false;
     }else{
         return true;

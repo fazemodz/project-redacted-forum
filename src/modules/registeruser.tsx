@@ -3,6 +3,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserLoginSuccess } from '../REDUXStores/user';
+import { CheckLenght } from '../functions/usernamechecks';
 const Registeruser: React.FC = () => {
   let navigate = useNavigate();
   const [Username, setUsername] = useState<string>('');
@@ -11,8 +12,6 @@ const Registeruser: React.FC = () => {
   const [Email, setEmail] = useState<string>('');
   const [RegisterError, setRegisterError] = useState<boolean>(false);
   const [RegisterErrorMessage, setRegisterErrorMessage] = useState<string>('');
-  const [PasswordCheckResult, setPasswordCheckResult] = useState<string>('');
-  const [EmailCheckResult, setEmailCheckResult] = useState<String>('');
   const User = useSelector((state: any) => state.user.value);
   const [PrevInvalidUsername, setPrevInvalidUsername] = useState<string>('');
   const DispatchUserInfoToStore = useDispatch();
@@ -52,20 +51,22 @@ const Registeruser: React.FC = () => {
     }, 10);
   };
   const CheckUsername = () => {
-    if(Username === PrevInvalidUsername){
+    if (Username === PrevInvalidUsername) {
       setRegisterError(true);
       setRegisterErrorMessage("Username is the same as the username you used last time");
       setRegisterButtonDisabled(true);
       console.log(RegisterErrorMessage)
 
     }
-    if (Username.length < 3) {
+    let LengthCheck = CheckLenght(Username);
+    if (LengthCheck === false) {
       setRegisterError(true);
-      setRegisterErrorMessage("Username must be at least 3 characters long");
-    }
-    if (Username.length < 20) {
-      setRegisterError(true);
-      setRegisterErrorMessage("Username must be at under 20 characters long");
+      setRegisterErrorMessage("Username is too short");
+      setRegisterButtonDisabled(true);
+      console.log(RegisterErrorMessage)
+    } else {
+      setRegisterError(false);
+      setRegisterButtonDisabled(false);
     }
     if (RegisterError == false) {
       axios
