@@ -22,6 +22,7 @@ const Registeruser: React.FC = () => {
 
     SubmitToApi();
   }
+ 
   const SubmitToApi = () => {
     // added a delay to fix a bug where the user needed to click twice for the api request to be sent
     setTimeout(() => {
@@ -49,8 +50,12 @@ const Registeruser: React.FC = () => {
           console.log(reaseon);
         });
     }, 10);
+
+    
+
   };
   const CheckUsername = () => {
+
     if (Username === PrevInvalidUsername) {
       setRegisterError(true);
       setRegisterErrorMessage("Username is the same as the username you used last time");
@@ -88,7 +93,7 @@ const Registeruser: React.FC = () => {
     }
   };
   return (
-    <div className="bg-grey-lighter h-4/5 flex flex columns">
+    <form className="bg-grey-lighter h-4/5 flex columns">
       <div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
           <h1 className="mb-8 text-3x1 text-center">Register</h1>
@@ -131,6 +136,7 @@ const Registeruser: React.FC = () => {
             className="w-full px-4 py-2 font-bold text-white dark:dark:bg-gray-800 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
             onClick={onSubmit}
             disabled={RegisterButtonDisabled}
+            
           >
             Register
           </button>
@@ -152,7 +158,7 @@ const Registeruser: React.FC = () => {
         </div>
       </div>
 
-    </div>
+    </form>
   )
 }
 export default Registeruser;

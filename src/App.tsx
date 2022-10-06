@@ -6,7 +6,8 @@ import Navbar from './modules/Navbar';
 import NotFound from './modules/NotFound';
 import Registeruser from './modules/registeruser';
 import UserProfile from './modules/UserProfile';
-
+import Forum from './modules/forum';
+import Createforum from './modules/createforum';
 const App: React.FC = () => {
   return (
     <>
@@ -17,6 +18,8 @@ const App: React.FC = () => {
         <Route path="/register" element={<Registeruser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user/:UserId" element={<UserProfile />} />
+        <Route path="/forum/:ForumId" element={<Forum />} />
+        <Route path="/forum/createforum" element={<Createforum />} />
       </Routes>
     </>
   );
