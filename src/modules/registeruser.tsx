@@ -22,7 +22,7 @@ const Registeruser: React.FC = () => {
 
     SubmitToApi();
   }
- 
+
   const SubmitToApi = () => {
     // added a delay to fix a bug where the user needed to click twice for the api request to be sent
     setTimeout(() => {
@@ -36,14 +36,15 @@ const Registeruser: React.FC = () => {
           if (response.data.message === "User Created") {
             DispatchUserInfoToStore(
               UserLoginSuccess({
+                UserUUID: response.data.UserUUID,
                 Username: Username,
                 Email: Email,
                 ForumsSubbedTo: response.data.UserData.ForumsSubbedTo,
                 IsUserLoggedin: true,
               })
             );
-
-            navigate("/");
+            //go to previous page
+            navigate(-1);
           }
         })
         .catch(function (reaseon: AxiosError) {
@@ -51,7 +52,7 @@ const Registeruser: React.FC = () => {
         });
     }, 10);
 
-    
+
 
   };
   const CheckUsername = () => {
@@ -136,7 +137,7 @@ const Registeruser: React.FC = () => {
             className="w-full px-4 py-2 font-bold text-white dark:dark:bg-gray-800 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
             onClick={onSubmit}
             disabled={RegisterButtonDisabled}
-            
+
           >
             Register
           </button>

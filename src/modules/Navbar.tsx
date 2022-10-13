@@ -14,6 +14,7 @@ const Navbar: React.FC = () => {
     }
     if (User.IsUserLoggedin === true) {
       console.log("User is logged in");
+      console.log(User.UserUUID);
     }
   }, [User.IsUserLoggedin]);
   return (
@@ -21,7 +22,7 @@ const Navbar: React.FC = () => {
       <div className="container flex justify-between h-16 mx-auto">
         <a
           rel="noopener noreferrer"
-          href=""
+          href="#"
           onClick={() => navigate("/")}
           aria-label="Back to homepage"
           className="flex items-center p-2"
@@ -34,34 +35,37 @@ const Navbar: React.FC = () => {
             height="50"
             viewBox="0 0 24 24"
           >
- 
+
             <path d="M 12 2 A 1 1 0 0 0 11.289062 2.296875 L 1.203125 11.097656 A 0.5 0.5 0 0 0 1 11.5 A 0.5 0.5 0 0 0 1.5 12 L 4 12 L 4 20 C 4 20.552 4.448 21 5 21 L 9 21 C 9.552 21 10 20.552 10 20 L 10 14 L 14 14 L 14 20 C 14 20.552 14.448 21 15 21 L 19 21 C 19.552 21 20 20.552 20 20 L 20 12 L 22.5 12 A 0.5 0.5 0 0 0 23 11.5 A 0.5 0.5 0 0 0 22.796875 11.097656 L 12.716797 2.3027344 A 1 1 0 0 0 12.710938 2.296875 A 1 1 0 0 0 12 2 z"></path>
           </svg>
         </a>
         <div className="flex items-center md:space-x-4">
-          <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-              <button
-                type="submit"
-                title="Search"
-                className="p-1 focus:outline-none focus:ring"
-              >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 512 512"
-                  className="w-4 h-4 dark:dark:text-gray-100"
+          {User.IsUserLoggedin ? (
+            null
+          ) : (
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                <button
+                  type="submit"
+                  title="Search"
+                  className="p-1 focus:outline-none focus:ring"
                 >
-                  <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
-                </svg>
-              </button>
-            </span>
-            <input
-              type="search"
-              name="Search"
-              placeholder="Search..."
-              className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:dark:bg-gray-800 dark:dark:text-gray-100 focus:dark:dark:bg-gray-900"
-            />
-          </div>
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 512 512"
+                    className="w-4 h-4 dark:dark:text-gray-100"
+                  >
+                    <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
+                  </svg>
+                </button>
+              </span>
+              <input
+                type="search"
+                name="Search"
+                placeholder="Search..."
+                className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:dark:bg-gray-800 dark:dark:text-gray-100 focus:dark:dark:bg-gray-900"
+              />
+            </div>)}
           {User.IsUserLoggedin ? (
             <div className="flex-col">
               <div className="inline-flex items-center divide-x rounded dark:bg-violet-400 dark:text-gray-800 divide-gray-700 order-1">
@@ -93,7 +97,7 @@ const Navbar: React.FC = () => {
                 </button>
               </div>
               {ShowDashboardDropdown ? (
-                <div className="h-fit p-3 space-y-2 w-60 border-2 dark:border=gray-100 dark:bg-gray-800 dark:text-gray-100 absolute order-2 ">
+                <div className="h-fit p-3 space-y-2 w-70 border-2 dark:border=gray-100 dark:bg-gray-800 dark:text-gray-100 absolute order-2 ">
                   <div className="flex items-center p-2 space-x-4">
                     <img
                       src="https://via.placeholder.com/100"
@@ -118,6 +122,7 @@ const Navbar: React.FC = () => {
                       <li className="dark:bg-gray-800 dark:text-gray-50">
                         <a
                           rel="noopener noreferrer"
+                          onClick={() => navigate("/forum/createforum")}
                           href="#"
                           className="flex items-center p-2 space-x-3 rounded-md"
                         >
@@ -128,7 +133,7 @@ const Navbar: React.FC = () => {
                           >
                             <path d="M68.983,382.642l171.35,98.928a32.082,32.082,0,0,0,32,0l171.352-98.929a32.093,32.093,0,0,0,16-27.713V157.071a32.092,32.092,0,0,0-16-27.713L272.334,30.429a32.086,32.086,0,0,0-32,0L68.983,129.358a32.09,32.09,0,0,0-16,27.713V354.929A32.09,32.09,0,0,0,68.983,382.642ZM272.333,67.38l155.351,89.691V334.449L272.333,246.642ZM256.282,274.327l157.155,88.828-157.1,90.7L99.179,363.125ZM84.983,157.071,240.333,67.38v179.2L84.983,334.39Z"></path>
                           </svg>
-                          <span>Dashboard</span>
+                          <span>Create Forum</span>
                         </a>
                       </li>
                       <li>

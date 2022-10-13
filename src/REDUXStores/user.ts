@@ -10,9 +10,11 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         value:{
+            UserUUID: "",
             Username: "",
             Email: "",
             ForumsSubbedTo: [],
+            Posts: [],
             IsUserLoggedin: false,
         }
     },

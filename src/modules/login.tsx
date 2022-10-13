@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {UserLoginSuccess} from '../REDUXStores/user';
+import { UserLoginSuccess } from '../REDUXStores/user';
 const Login: React.FC = () => {
 	const [Username, setUSername] = useState<string>('');
 	const [Password, setPassword] = useState<string>('');
@@ -16,29 +16,31 @@ const Login: React.FC = () => {
 		})
 			.then(function (response) {
 				console.log(response.status);
+				console.log(response.data);
 				if (response.status === 200) {
 					DispatchUserInfoToStore(UserLoginSuccess({
+						UserUUID: response.data.UserUUID,
 						Username: Username,
 						Email: response.data.Email,
 						ForumsSubbedTo: response.data.ForumsSubbedTo,
-						IsUserLoggedin : true
+						IsUserLoggedin: true
 
 					}));
 				}
 			})
 			.catch(function (reaseon: AxiosError) {
-				if(reaseon.message === 'Request failed with status code 404'){
+				if (reaseon.message === 'Request failed with status code 404') {
 					console.log("An error occurred: " + reaseon.message);
 					setIsUsernameInvalid(false);
 				}
-				else{
+				else {
 					console.log("An error occurred: " + reaseon.message);
 					setIsUsernameInvalid(true);
 				}
-				
+
 			});
 	}
-	
+
 	const CheckUsername = () => {
 		if (Username.includes('@') && Username.includes('.')) {
 			setIsUsernameInvalid(true);
@@ -49,8 +51,8 @@ const Login: React.FC = () => {
 	}
 	return (
 		<>
-			
-			<div className="bg-grey-lighter h-4/5 pt-56 flex flex columns overflow-hidden">
+
+			<div className="bg-grey-lighter h-4/5 pt-56  flex columns overflow-hidden">
 				<div className="container max-w-sm mx-auto flex 1 flex-col items-center justify-center px-2">
 					<div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
 						<h1 className="mb-8 text-3x1 text-center">Login</h1>
