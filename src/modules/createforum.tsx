@@ -37,7 +37,7 @@ const Createforum: React.FC = () => {
       setisForumDescriptionValid(false);
     }
     if(ForumName.length == 0 ){
-      alert("Forum name is oo short")
+      alert("Forum name is too short")
       setisForumNameValid(false);
       
     }

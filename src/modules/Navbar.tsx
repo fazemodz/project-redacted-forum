@@ -6,17 +6,8 @@ const Navbar: React.FC = () => {
   let navigate = useNavigate();
   const IsUserLoggedin = User.IsUserLoggedin;
   const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
-  const [ShowDashboardDropdown, setShowDashboardDropdown] =
-    useState<boolean>(false);
-  useEffect(() => {
-    if (User.IsUserLoggedin === false) {
-      console.log("User is not logged in");
-    }
-    if (User.IsUserLoggedin === true) {
-      console.log("User is logged in");
-      console.log(User.UserUUID);
-    }
-  }, [User.IsUserLoggedin]);
+  const [ShowDashboardDropdown, setShowDashboardDropdown] = useState<boolean>(false);
+  const [searchSting, setSearchString] = useState<string>("");
   return (
     <header className="p-4 dark:dark:bg-gray-800 dark:dark:text-gray-100">
       <div className="container flex justify-between h-16 mx-auto">
@@ -63,6 +54,8 @@ const Navbar: React.FC = () => {
                 type="search"
                 name="Search"
                 placeholder="Search..."
+                value={searchSting}
+                onChange={(e) => setSearchString(e.target.value)}
                 className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:dark:bg-gray-800 dark:dark:text-gray-100 focus:dark:dark:bg-gray-900"
               />
             </div>)}

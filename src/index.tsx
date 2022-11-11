@@ -20,13 +20,11 @@ const store = configureStore({
 });
 // https://www.youtube.com/watch?v=k68j9xlbHHk&t=2440s&ab_channel=PedroTech
 root.render(
-  <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

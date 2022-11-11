@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState, Component } from 'react';
+import { Route, Routes  } from 'react-router-dom';
 import './App.css';
 import Login from './modules/login';
 import Navbar from './modules/Navbar';
@@ -8,13 +8,15 @@ import Registeruser from './modules/registeruser';
 import UserProfile from './modules/UserProfile';
 import Forum from './modules/forum';
 import Createforum from './modules/createforum';
+import Postcard from './modules/postcard';
+import axios from 'axios';
 const App: React.FC = () => {
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={Homepage()} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Registeruser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user/:UserId" element={<UserProfile />} />
@@ -24,15 +26,32 @@ const App: React.FC = () => {
     </>
   );
 }
-const Homepage = () => {
-  useEffect(() => {
-    document.title = 'Homepage';
-  });
-  return (
-    <div className="App">
-
-    </div>
-  );
-}
+class Homepage extends Component {
+  state = {
+    Posts: [],
+  }
+  componentDidMount() {
+    this.GetPosts();
+  }
+  GetPosts = () => {
+    // get posts from api
+    axios.get('http://localhost:5000/api/v1/Post-endpoint/Get-all-posts')
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ Posts: response.data });
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+   }
+   render() {
+      return (
+        <>
+          <h1>Homepage</h1>
+        </>
+      )
+    }
+  } 
 
 export default App;

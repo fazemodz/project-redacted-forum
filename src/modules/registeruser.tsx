@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserLoginSuccess } from '../REDUXStores/user';
-import { CheckLenght } from '../functions/usernamechecks';
 const Registeruser: React.FC = () => {
   let navigate = useNavigate();
   const [Username, setUsername] = useState<string>('');
@@ -50,30 +49,9 @@ const Registeruser: React.FC = () => {
         .catch(function (reaseon: AxiosError) {
           console.log(reaseon);
         });
-    }, 10);
-
-
-
+    }, 1);
   };
   const CheckUsername = () => {
-
-    if (Username === PrevInvalidUsername) {
-      setRegisterError(true);
-      setRegisterErrorMessage("Username is the same as the username you used last time");
-      setRegisterButtonDisabled(true);
-      console.log(RegisterErrorMessage)
-
-    }
-    let LengthCheck = CheckLenght(Username);
-    if (LengthCheck === false) {
-      setRegisterError(true);
-      setRegisterErrorMessage("Username is too short");
-      setRegisterButtonDisabled(true);
-      console.log(RegisterErrorMessage)
-    } else {
-      setRegisterError(false);
-      setRegisterButtonDisabled(false);
-    }
     if (RegisterError == false) {
       axios
         .post("http://localhost:5000/api/v1/user-endpoint/Check-username", {

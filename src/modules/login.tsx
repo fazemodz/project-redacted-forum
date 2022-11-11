@@ -2,11 +2,13 @@ import axios, { AxiosError } from "axios";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { UserLoginSuccess } from '../REDUXStores/user';
+import { useNavigate } from "react-router-dom";
 const Login: React.FC = () => {
 	const [Username, setUSername] = useState<string>('');
 	const [Password, setPassword] = useState<string>('');
 	const [IsUsernameInvalid, setIsUsernameInvalid] = useState<boolean>(false);
 	const DispatchUserInfoToStore = useDispatch();
+	let navigate = useNavigate();
 	const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		console.log(Username, Password);
@@ -26,6 +28,7 @@ const Login: React.FC = () => {
 						IsUserLoggedin: true
 
 					}));
+					navigate(-1);
 				}
 			})
 			.catch(function (reaseon: AxiosError) {
