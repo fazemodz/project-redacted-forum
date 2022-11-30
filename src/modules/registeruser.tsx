@@ -4,6 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserLoginSuccess } from '../REDUXStores/user';
 const Registeruser: React.FC = () => {
+  interface UserInfo{
+    Username: string;
+    Email: string;
+    Password: string;
+    ConfirmPassword: string;
+  }
+  const [UserInfo, setUserInfo] = useState<UserInfo>();
   let navigate = useNavigate();
   const [Username, setUsername] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
@@ -80,7 +87,8 @@ const Registeruser: React.FC = () => {
             type="email"
             placeholder="Email"
             value={Email}
-            onChange={(e) => setEmail(e.target.value)}
+            // onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setUserInfo({ ...UserInfo, Email: e.target.value })}
             id="email"
             className="block border border-grey-light w-full p-3 rounded mb-4"
           />
