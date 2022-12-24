@@ -30,12 +30,13 @@ export default function Forum() {
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/Forum-endpoint/Get-forum-by-url/${ForumNameURLFriendlyFromPath}`)
       .then((response) => {
+        console.log(response.data)
         setForumData(response.data);
-        console.log(ForumData)
         axios.get(`http://localhost:5000/api/v1/Post-endpoint/Get-posts-ByForumUUID/${response.data.ForumUUID}`)
           .then((response) => {
             setPosts(response.data);
             console.log(Posts)
+
           })
           .catch((error) => {
             console.log(error);
