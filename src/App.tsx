@@ -1,5 +1,5 @@
 import { useEffect, useState, Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useSearchParams } from 'react-router-dom';
 import './App.css';
 import Login from './modules/login';
 import Navbar from './modules/Navbar';
@@ -8,6 +8,7 @@ import Registeruser from './modules/registeruser';
 import UserProfile from './modules/UserProfile';
 import Forum from './modules/forum';
 import Createforum from './modules/createforum';
+import removehashfromurl from './functions/removehashfromurl';
 import axios from 'axios';
 const App: React.FC = () => {
   return (
@@ -28,14 +29,18 @@ const App: React.FC = () => {
 const Homepage = () => {
   const [Posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     GetPosts();
+    searchParams.delete('#');
+    setSearchParams(searchParams);
   }, []);
   const GetPosts = () => {
     // get posts from api
-    axios.get('http://localhost:5000/api/v1/Post-endpoint/Get-all-posts')
+    axios.get('http://localhost:5000/api/v1/Post-endpoint/Get-all-posts',)
       .then((response) => {
         console.log(response.data);
+        setisLoading(false);
         setPosts(response.data);
       })
       .catch((error) => {
@@ -50,7 +55,10 @@ const Homepage = () => {
         </div> :
         <div className="dark:bg-gray-800 dark:text-gray-50 p-6">
           <div className="container grid grid-cols-12 mx-auto dark:bg-gray-900">
-            <div className="bg-no-repeat bg-cover dark:bg-gray-700 col-span-full lg:col-span-4"></div>
+            {/* picture */}
+            <div className="bg-no-repeat bg-cover dark:bg-gray-700 col-span-full lg:col-span-4">
+
+            </div>
             <div className="flex flex-col p-6 col-span-full row-span-full lg:col-span-8 lg:p-10">
               <div className="flex justify-start">
                 <span className="px-2 py-1 text-xs rounded-full dark:bg-violet-400 dark:text-gray-900">Label</span>

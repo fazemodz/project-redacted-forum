@@ -24,7 +24,7 @@ export default function Forum() {
   const [ForumData, setForumData] = useState<ForumData>();
   const [IsUserSubbedtoforum, setIsUserSubbedtoforum] = useState<boolean>(false);
   const [IsUserLoggedin, setIsUserLoggedin] = useState<boolean>(false);
-  const {isOpen, toggle} = useModal();
+  const { isOpen, toggle } = useModal();
   const Path = window.location.pathname;
   const ForumNameURLFriendlyFromPath = Path.replace("/forum/", "");
   useEffect(() => {
@@ -61,11 +61,14 @@ export default function Forum() {
           <h2 className="text-xl font-semibold leading-tight tracking-wide">{ForumData?.ForumName}</h2>
           <p className="flex-1 dark:dark:text-gray-400">{ForumData?.ForumDescription}</p>
           <div className="flex flex-col justify-between gap-6 mt-6 sm:flex-row">
-            <button className="px-6 py-2 rounded-sm shadow-sm dark:dark:bg-violet-400 dark:dark:text-gray-900" onClick={toggle}>Create Post</button>
+            {IsUserLoggedin ?
+              <button className="px-6 py-2 rounded-sm shadow-sm dark:dark:bg-violet-400 dark:dark:text-gray-900" onClick={toggle}>Create Post</button>
+              : null
+            }
           </div>
         </div>
       </div>
-     {isOpen? <Createpost isOpen={isOpen} toggle={toggle}  /> : null}
+      {isOpen ? <Createpost isOpen={isOpen} toggle={toggle} ForumUUID={ForumData?.ForumUUID} ForumName={ForumData?.ForumName} /> : null}
     </>
   )
 

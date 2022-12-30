@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 interface CreateforumModal {
   isOpen: boolean;
   children?: ReactNode;
+  ForumUUID: any;
+  ForumName: any;
   toggle: () => void;
 }
 const Createpost = (props: CreateforumModal) => {
@@ -21,7 +23,7 @@ const Createpost = (props: CreateforumModal) => {
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full dark:bg-gray-900 dark:text-gray-100 outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Create a new post in {props.children}</h3>
+                  <h3 className="text-3xl font-semibold">Create a new post in {props.ForumName}</h3>
                   <button className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={props.toggle} >
                     <span className="bg-transparent dark:text-gray-100  h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
                   </button>

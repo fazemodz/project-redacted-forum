@@ -40,6 +40,7 @@ const Registeruser: React.FC = () => {
                 IsUserLoggedin: true,
               })
             );
+            navigate(-1);
           }
         })
         .catch(function (reaseon: AxiosError) {
