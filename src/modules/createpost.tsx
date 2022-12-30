@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect, ReactNode } from 'react'
 import ReactDOM from 'react-dom'
 interface CreateforumModal {
@@ -5,14 +6,31 @@ interface CreateforumModal {
   children?: ReactNode;
   ForumUUID: any;
   ForumName: any;
+  AuthorUUID: any;
+  AuthorName: any;
   toggle: () => void;
 }
 const Createpost = (props: CreateforumModal) => {
-  const [isDomready, setisDomready] = useState(false);
+  const [isDomready, setisDomready] = useState<boolean>(false);
+  const [postTitle, setpostTitle] = useState<string>('');
+  const [postContent, setpostContent] = useState<string>('');
+  const [posturl, setpostUrl] = useState<string>('');
   const HandleSubmitAddNewPost = (event: React.MouseEvent<HTMLButtonElement>) => {
-
+    //to do
+    //add some checks for length of title and content
+    axios.post('http://localhost:5000/api/v1/Post-endpoint/Create-new-post', {
+      PostTitle: postTitle,
+      PostContent: postContent,
+      PostAuthor: props.AuthorName,
+      PostAuthorUUID: props.AuthorUUID,
+      ForumUUID: props.ForumUUID,
+      ForumName: props.ForumName,
+      PostURL: posturl
+    })
   }
   useEffect(() => {
+    setpostTitle('');
+    setpostContent('');
     setisDomready(true);
   }, [1])
   return ReactDOM.createPortal(
@@ -31,9 +49,9 @@ const Createpost = (props: CreateforumModal) => {
                 <div className="relative p-6 flex-auto">
                   <form>
                     <label className="text-xl font-semibold leading-tight tracking-wide">Post Title</label>
-                    <input id="PostTitle" type="text" placeholder="Post Title" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900" />
+                    <input id="PostTitle" type="text" placeholder="Post Title" value={postTitle} onChange={(e)=> setpostTitle(e.target.value)} className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900" />
                     <label className="text-xl font-semibold leading-tight tracking-wide">Post Content</label>
-                    <textarea id="PostContent" placeholder="PostContent" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900"></textarea>
+                    <textarea id="PostContent" placeholder="PostContent" value={postContent} onChange={(e)=> setpostContent(e.target.value)} className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900"></textarea>
                   </form>
                   <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                     <div className="flex flex-col justify-between gap-6 mt-1 sm:flex-row">

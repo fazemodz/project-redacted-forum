@@ -1,5 +1,5 @@
-import { useEffect, useState, Component } from 'react';
-import { Route, Routes, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './modules/login';
 import Navbar from './modules/Navbar';
@@ -8,7 +8,6 @@ import Registeruser from './modules/registeruser';
 import UserProfile from './modules/UserProfile';
 import Forum from './modules/forum';
 import Createforum from './modules/createforum';
-import removehashfromurl from './functions/removehashfromurl';
 import axios from 'axios';
 const App: React.FC = () => {
   return (
@@ -29,15 +28,12 @@ const App: React.FC = () => {
 const Homepage = () => {
   const [Posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     GetPosts();
-    searchParams.delete('#');
-    setSearchParams(searchParams);
   }, []);
   const GetPosts = () => {
     // get posts from api
-    axios.get('http://localhost:5000/api/v1/Post-endpoint/Get-all-posts',)
+    axios.get('http://localhost:5000/api/v1/Post-endpoint/Get-all-posts')
       .then((response) => {
         console.log(response.data);
         setisLoading(false);
