@@ -9,8 +9,6 @@ import {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-
-// https://www.youtube.com/watch?v=k68j9xlbHHk&t=2440s&ab_channel=PedroTech
 root.render(
       <BrowserRouter>
         <App />
