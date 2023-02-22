@@ -1,7 +1,8 @@
-export default {
-    APIURl   :     process.env.APIURL,
-    Username :     localStorage.getItem('username'),
-    Email    :     localStorage.getItem('email'),
-    Token    :     localStorage.getItem('token'),
-    Userid   :     localStorage.getItem('userid'),
+var APIURL = import.meta.env.VITE_API_URL;
+var Username =localStorage.getItem('username')
+var Email    = localStorage.getItem('email')
+var Token   = localStorage.getItem('token')
+var Userid = localStorage.getItem('userid')
+export {
+    APIURL, Username, Email, Token, Userid
 }
