@@ -5,3 +5,4 @@
 * [ ] Password Reset (through and email link?)
 * [ ] User PFP
 
+https://www.hyperui.dev/components/marketing/cards

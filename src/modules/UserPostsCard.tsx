@@ -13,7 +13,7 @@ export default function UserPostsCard() {
       </a>
   
       <div>
-        <h3 className="font-medium sm:text-lg">
+        <h3 className="font-medium text-white sm:text-lg">
           <a href="#" className="hover:underline">
             Question about Livewire Rendering and Alpine JS
           </a>
@@ -52,32 +52,14 @@ export default function UserPostsCard() {
             <a href="#" className="font-medium underline hover:text-gray-700">
               John
             </a>
+          </p><p className="hidden sm:block sm:text-xs sm:text-gray-500">
+            in
+            <a href="#" className="font-medium underline hover:text-gray-700">
+              /test
+            </a>
           </p>
         </div>
       </div>
-    </div>
-  
-    <div className="flex justify-end">
-      <strong
-        className="-mb-[2px] -me-[2px] inline-flex items-center gap-1 rounded-ee-xl rounded-ss-xl bg-green-600 px-3 py-1.5 text-white"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-          />
-        </svg>
-  
-        <span className="text-[10px] font-medium sm:text-xs">Solved!</span>
-      </strong>
     </div>
   </article>
   </div>

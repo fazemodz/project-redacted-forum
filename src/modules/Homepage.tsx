@@ -1,13 +1,15 @@
 import React from 'react'
 import {Username} from "./utils/NeededInformation";
-
+import UserPostsCard from'./UserPostsCard';
+import axios from 'axios';
 const Homepage: React.FC = () =>{
     React.useEffect(() => {
-    document.title = 'Homepage';
-    console.log(Username);
+  
     }, [])
   return (
-    <div>Homepage</div>
+    <div>
+      <UserPostsCard />
+    </div>
   )
 }
 export default Homepage;
